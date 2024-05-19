@@ -469,19 +469,19 @@ IPv6：${IPv6}
 }
 
 get_public_ip(){
-    InFaces=$(netstat -i | awk '{print $1}' | grep -E '^(eth|ens|eno|esp|enp|venet|vif)[0-9]+')
+    InFaces=($(netstat -i | awk '{print $1}' | grep -E '^(eth|ens|eno|esp|enp|venet|vif)[0-9]+'))
 
     for i in "${InFaces[@]}"; do
-        Public_IPv4=$(curl -s4 --interface "$i" ip.gs)
-        Public_IPv6=$(curl -s6 --interface "$i" ip.gs)
+        Public_IPv4=$(curl -s4 --interface "$i" ip.sb)
+        Public_IPv6=$(curl -s6 --interface "$i" ip.sb)
 
         # 检查是否获取到IP地址
         if [[ -n "$Public_IPv4" ]]; then
             IPv4="$Public_IPv4"
-        fi
-
-        if [[ -n "$Public_IPv6" ]]; then
-            IPv6="$Public_IPv6"
+            if [[ -n "$Public_IPv6" ]]; then
+                IPv6="$Public_IPv6"
+            fi
+            break
         fi
     done
 }
