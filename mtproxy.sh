@@ -474,13 +474,11 @@ get_public_ip(){
     for i in "${InFaces[@]}"; do
         Public_IPv4=$(curl -s4 --interface "$i" ip.sb)
         Public_IPv6=$(curl -s6 --interface "$i" ip.sb)
-
+        
         # 检查是否获取到IP地址
-        if [[ -n "$Public_IPv4" ]]; then
+        if [[ -n "$Public_IPv4" || -n "$Public_IPv6" ]]; then
             IPv4="$Public_IPv4"
-            if [[ -n "$Public_IPv6" ]]; then
-                IPv6="$Public_IPv6"
-            fi
+            IPv6="$Public_IPv6"
             break
         fi
     done
