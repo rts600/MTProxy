@@ -472,8 +472,8 @@ get_public_ip(){
     InFaces=($(netstat -i | awk '{print $1}' | grep -E '^(eth|ens|eno|esp|enp|venet|vif)[0-9]+'))
 
     for i in "${InFaces[@]}"; do
-        Public_IPv4=$(curl -s4 --interface "$i" ip.sb)
-        Public_IPv6=$(curl -s6 --interface "$i" ip.sb)
+        Public_IPv4=$(curl -s4 --max-time 3 --interface "$i" ip.gs)
+        Public_IPv6=$(curl -s6 --max-time 3 --interface "$i" ip.gs)
         
         # 检查是否获取到IP地址
         if [[ -n "$Public_IPv4" || -n "$Public_IPv6" ]]; then
