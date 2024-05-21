@@ -157,7 +157,7 @@ Download(){
     get_public_ip
     cd "${mtproxy_dir}"
     echo -e "${Info} 开始下载/安装..."
-    curl -sO https://raw.githubusercontent.com/elesssss/MTProxy/main/mtproxy.py
+    curl -sO https://raw.githubusercontent.com/rts600/MTProxy/main/mtproxy.py
 
     cat >${mtproxy_conf} <<-EOF
 PORT = 443
